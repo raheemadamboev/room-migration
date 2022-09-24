@@ -11,6 +11,6 @@ data class UserEntity(
     val email: String,
     val username: String,
 
-//    @ColumnInfo(name = "created", defaultValue = "0")
-//    val createdAt: Long = System.currentTimeMillis(),
+    @ColumnInfo(name = "created", defaultValue = "0")
+    val createdAt: Long = System.currentTimeMillis(),
 )

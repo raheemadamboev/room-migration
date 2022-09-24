@@ -8,11 +8,11 @@ import androidx.room.migration.AutoMigrationSpec
 
 @Database(
     entities = [UserEntity::class],
-    version = 1,
-//    autoMigrations = [
-//        AutoMigration(from = 1, to = 2),
-////        AutoMigration(from = 2, to = 3, spec = MigrationDatabase.Migration2To3::class)
-//    ]
+    version = 2,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2),
+//        AutoMigration(from = 2, to = 3, spec = MigrationDatabase.Migration2To3::class)
+    ]
 )
 abstract class MigrationDatabase : RoomDatabase() {
 
