@@ -19,7 +19,7 @@ class MigrationTest {
     val helper = MigrationTestHelper(
         InstrumentationRegistry.getInstrumentation(),
         MigrationDatabase::class.java,
-        listOf(MigrationDatabase.Migration2To3()),
+        listOf(MigrationAutoMigration.Migration2To3()),
         FrameworkSQLiteOpenHelperFactory()
     )
 
