@@ -2,25 +2,40 @@ package xyz.teamgravity.roommigration
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import xyz.teamgravity.roommigration.ui.theme.RoomMigrationTheme
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class Main : ComponentActivity() {
+
+    private val database: MigrationDatabase by lazy {
+        Room.databaseBuilder(applicationContext, MigrationDatabase::class.java, "migration")
+            .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            RoomMigrationTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
 
-                }
+        getUsers()
+    }
+
+    private fun insertUsers() {
+        lifecycleScope.launch {
+            repeat(10) { index ->
+                database.migrationDao().insertUser(
+                    UserEntity(
+                        email = "test$index@fuse.tea",
+                        username = "user-$index"
+                    )
+                )
             }
+        }
+    }
+
+    private fun getUsers() {
+        lifecycleScope.launch {
+            database.migrationDao().getUsers().first().forEach(::println)
         }
     }
 }
