@@ -16,10 +16,16 @@ interface MigrationDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertUser(user: UserEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertSchool(school: SchoolEntity)
+
     ///////////////////////////////////////////////////////////////////////////
     // GET
     ///////////////////////////////////////////////////////////////////////////
 
     @Query("SELECT * FROM table_user")
     fun getUsers(): Flow<List<UserEntity>>
+
+    @Query("SELECT * FROM table_school")
+    fun getSchools(): Flow<List<SchoolEntity>>
 }

@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.AutoMigrationSpec
 
 @Database(
-    entities = [UserEntity::class],
-    version = 3,
+    entities = [UserEntity::class, SchoolEntity::class],
+    version = 4,
     autoMigrations = [
         AutoMigration(from = 1, to = 2),
         AutoMigration(from = 2, to = 3, spec = MigrationDatabase.Migration2To3::class)

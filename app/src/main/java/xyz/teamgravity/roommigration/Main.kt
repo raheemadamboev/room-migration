@@ -11,6 +11,7 @@ class Main : ComponentActivity() {
 
     private val database: MigrationDatabase by lazy {
         Room.databaseBuilder(applicationContext, MigrationDatabase::class.java, "migration")
+            .addMigrations(MigrationMigration.MIGRATION_3_4)
             .build()
     }
 
@@ -18,7 +19,9 @@ class Main : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
 //        insertUsers()
-        getUsers()
+//        getUsers()
+//        insertSchools()
+        getSchools()
     }
 
     private fun insertUsers() {
@@ -37,6 +40,24 @@ class Main : ComponentActivity() {
     private fun getUsers() {
         lifecycleScope.launch {
             database.migrationDao().getUsers().first().forEach(::println)
+        }
+    }
+
+    private fun insertSchools() {
+        lifecycleScope.launch {
+            repeat(5) { index ->
+                database.migrationDao().insertSchool(
+                    SchoolEntity(
+                        id = "school-$index"
+                    )
+                )
+            }
+        }
+    }
+
+    private fun getSchools() {
+        lifecycleScope.launch {
+            database.migrationDao().getSchools().first().forEach(::println)
         }
     }
 }
